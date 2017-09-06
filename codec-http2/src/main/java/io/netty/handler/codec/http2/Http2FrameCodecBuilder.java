@@ -54,6 +54,16 @@ public class Http2FrameCodecBuilder extends
     }
 
     @Override
+    public boolean sendPreface() {
+        return super.sendPreface();
+    }
+
+    @Override
+    public Http2FrameCodecBuilder sendPreface(boolean sendPreface) {
+        return super.sendPreface(sendPreface);
+    }
+
+    @Override
     public Http2Settings initialSettings() {
         return super.initialSettings();
     }

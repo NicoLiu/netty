@@ -27,6 +27,11 @@ public final class HttpToHttp2ConnectionHandlerBuilder extends
         AbstractHttp2ConnectionHandlerBuilder<HttpToHttp2ConnectionHandler, HttpToHttp2ConnectionHandlerBuilder> {
 
     @Override
+    public HttpToHttp2ConnectionHandlerBuilder sendPreface(boolean sendPreface) {
+        return super.sendPreface(sendPreface);
+    }
+
+    @Override
     public HttpToHttp2ConnectionHandlerBuilder validateHeaders(boolean validateHeaders) {
         return super.validateHeaders(validateHeaders);
     }

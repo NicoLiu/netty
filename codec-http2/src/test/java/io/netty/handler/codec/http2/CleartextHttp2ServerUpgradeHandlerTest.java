@@ -60,7 +60,8 @@ public class CleartextHttp2ServerUpgradeHandlerTest {
     private void setUpServerChannel() {
         frameListener = mock(Http2FrameListener.class);
 
-        http2ConnectionHandler = new Http2ConnectionHandlerBuilder().frameListener(frameListener).build();
+        http2ConnectionHandler = new Http2ConnectionHandlerBuilder().sendPreface(false)
+                .frameListener(frameListener).build();
 
         UpgradeCodecFactory upgradeCodecFactory = new UpgradeCodecFactory() {
             @Override

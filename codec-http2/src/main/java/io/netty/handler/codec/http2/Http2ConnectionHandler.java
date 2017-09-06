@@ -79,6 +79,7 @@ public class Http2ConnectionHandler extends ByteToMessageDecoder implements Http
     private ChannelFutureListener closeListener;
     private BaseDecoder byteDecoder;
     private long gracefulShutdownTimeoutMillis;
+    private boolean sendPreface = true;
 
     protected Http2ConnectionHandler(Http2ConnectionDecoder decoder, Http2ConnectionEncoder encoder,
                                      Http2Settings initialSettings) {
@@ -107,6 +108,14 @@ public class Http2ConnectionHandler extends ByteToMessageDecoder implements Http
         }
         encoder = new DefaultHttp2ConnectionEncoder(connection, frameWriter);
         decoder = new DefaultHttp2ConnectionDecoder(connection, encoder, frameReader);
+    }
+
+    void sendPreface(boolean sendPreface) {
+        this.sendPreface = sendPreface;
+    }
+
+    boolean sendPreface() {
+        return sendPreface;
     }
 
     /**
@@ -348,7 +357,7 @@ public class Http2ConnectionHandler extends ByteToMessageDecoder implements Http
          * Sends the HTTP/2 connection preface upon establishment of the connection, if not already sent.
          */
         private void sendPreface(ChannelHandlerContext ctx) {
-            if (prefaceSent || !ctx.channel().isActive()) {
+            if (!sendPreface || prefaceSent || !ctx.channel().isActive()) {
                 return;
             }
 

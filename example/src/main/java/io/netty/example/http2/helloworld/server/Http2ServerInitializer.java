@@ -45,7 +45,7 @@ public class Http2ServerInitializer extends ChannelInitializer<SocketChannel> {
         @Override
         public UpgradeCodec newUpgradeCodec(CharSequence protocol) {
             if (AsciiString.contentEquals(Http2CodecUtil.HTTP_UPGRADE_PROTOCOL_NAME, protocol)) {
-                return new Http2ServerUpgradeCodec(new HelloWorldHttp2HandlerBuilder().build());
+                return new Http2ServerUpgradeCodec(new HelloWorldHttp2HandlerBuilder(true).build());
             } else {
                 return null;
             }
@@ -92,7 +92,7 @@ public class Http2ServerInitializer extends ChannelInitializer<SocketChannel> {
         final HttpServerUpgradeHandler upgradeHandler = new HttpServerUpgradeHandler(sourceCodec, upgradeCodecFactory);
         final CleartextHttp2ServerUpgradeHandler cleartextHttp2ServerUpgradeHandler =
                 new CleartextHttp2ServerUpgradeHandler(sourceCodec, upgradeHandler,
-                                                       new HelloWorldHttp2HandlerBuilder().build());
+                                                       new HelloWorldHttp2HandlerBuilder(false).build());
 
         p.addLast(cleartextHttp2ServerUpgradeHandler);
         p.addLast(new SimpleChannelInboundHandler<HttpMessage>() {

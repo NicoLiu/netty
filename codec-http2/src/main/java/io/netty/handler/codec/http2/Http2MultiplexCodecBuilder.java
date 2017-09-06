@@ -64,6 +64,16 @@ public class Http2MultiplexCodecBuilder
     }
 
     @Override
+    public boolean sendPreface() {
+        return super.sendPreface();
+    }
+
+    @Override
+    public Http2MultiplexCodecBuilder sendPreface(boolean sendPreface) {
+        return super.sendPreface(sendPreface);
+    }
+
+    @Override
     public Http2Settings initialSettings() {
         return super.initialSettings();
     }
